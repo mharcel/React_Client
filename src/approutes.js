@@ -7,7 +7,7 @@ import NewBook from './pages/NewBook'
 
 export default function AppRoutes() {
     return (
-            <BrowserRouter>
+            <BrowserRouter basename="/mharcel">
                 <Routes>
                     <Route path="/" element={<Login/>}/>                
                     <Route path="/books" element={<Book/>}/>      
