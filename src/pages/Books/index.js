@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import './styles.css';
 import logoImage from '../../assets/logo.svg';
-import {FiPower, FiEdit, FiTrash, FiTrash2} from 'react-icons/fi';
+import {FiPower, FiEdit, FiTrash2} from 'react-icons/fi';
 import api from "../../services/api";
 
 export default function Books(){
@@ -21,7 +21,7 @@ export default function Books(){
 
     useEffect(() => {
         fetchMoreBooks();
-    }, [accessToken])
+    }, accessToken)
 
     async function editBook(id){
         try {
