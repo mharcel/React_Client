@@ -8,6 +8,7 @@ import LoadingModal from "../loadingModal";
 
 export default function NewBook(){
     const [isLoading, setIsLoading] = useState(false);
+    const [loadingMessage, setLoadingMessage] = useState();
     const [id, setId] = useState(null);
     const [author, setAuthor] = useState('');
     const [title, setTitle] = useState('');
@@ -26,6 +27,12 @@ export default function NewBook(){
         }
     }
 
+    const setLoadingModal = (isLoading, loadingMessage) => {
+        setIsLoading(isLoading);
+        setLoadingMessage(loadingMessage);
+    }
+
+
     useEffect(() => {
         if(bookId === '0') return;
         else loadBook();
@@ -33,7 +40,7 @@ export default function NewBook(){
 
     async function loadBook(){
         try {
-            setIsLoading(true);
+            setLoadingModal(true);
             const response = await api.get(`api/book/v1/${bookId}`, authorization)
 
             let adjustedDate = response.data.launchDate.split("T", 10)[0];
@@ -43,7 +50,7 @@ export default function NewBook(){
             setAuthor(response.data.author);
             setPrice(response.data.price);
             setLaunchDate(adjustedDate);
-            setIsLoading(false);
+            setLoadingModal(false);
         } catch (error) {
             alert('Error recovering book');
             history('/books')
@@ -61,6 +68,7 @@ export default function NewBook(){
         }
 
         try {
+            setLoadingModal(true, "Saving book...");
             if(bookId === '0'){
                 await api.post('api/Book/v1', data, authorization);
             } else{
@@ -72,13 +80,14 @@ export default function NewBook(){
         } catch (error) {
             alert('Error recording book!')
         }
+        setLoadingModal(false);
         history('/books')
     }
 
 
     return(        
         <div className="new-book-container">
-            {isLoading && <LoadingModal isLoading={isLoading} description="Loading Book..."/>}
+            {isLoading && <LoadingModal isLoading={isLoading} description={loadingMessage}/>}
             <div className="content">
                 <section className="form">
                     <img src={logoImage} alt="Erudio" />

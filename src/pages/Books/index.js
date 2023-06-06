@@ -5,14 +5,32 @@ import logoImage from '../../assets/library.png';
 import {FiPower, FiEdit, FiTrash2} from 'react-icons/fi';
 import api from "../../services/api";
 import LoadingModal from "../loadingModal";
+import ConfirmationModal from "../confirmationModal";
 
 export default function Books(){
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [loadingMessage, setLoadingMessage] = useState();
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [books, setBooks] = useState([]);
+    const [bookIdDelete, setBookIdDelete] = useState();
+
     const userName = localStorage.getItem('userName')    
     const accessToken = localStorage.getItem('accessToken');
+
+    const handleDeleteClick = (id) => {
+        setShowConfirmationModal(true);
+        setBookIdDelete(id);
+      };
+    
+      const handleConfirmDelete = () => {
+        deleteBook(bookIdDelete);
+        setShowConfirmationModal(false);
+      };
+    
+      const handleCancelDelete = () => {
+        setShowConfirmationModal(false);
+      };
 
     const setLoadingModal = (isLoading, loadingMessage) => {
         setIsLoading(isLoading);
@@ -41,13 +59,16 @@ export default function Books(){
 
     async function deleteBook(id){
         try {
-            const confirmed = window.confirm('Are you sure you want to proceed?');
-            if(confirmed === false) return;
+            setLoadingModal(true, `Deleting book ${id}`);
+            // const confirmed = window.confirm('Are you sure you want to proceed?');
+            // if(confirmed === false) return;
             await api.delete(`api/Book/v1/${id}`, authorization);
 
             setBooks(books.filter(book => book.id !== id))
+            setLoadingModal(false);
         } catch (error) {
-            alert('Delete Error!')
+            alert('Delete Error!');
+            setLoadingModal(false);
         }
     }
 
@@ -65,7 +86,7 @@ export default function Books(){
     }
 
     async function fetchMoreBooks(){
-        setLoadingModal(true, "Loading Books...");
+        setLoadingModal(true, `Loading Books... ${page}`);
         const response = await api.get(`api/Book/v1/asc/10/${page}`, authorization);
             setBooks([ ...books, ...response.data.list]);
             setPage(page + 1);
@@ -100,14 +121,21 @@ export default function Books(){
                             <button onClick={() => editBook(book.id)} type="button">
                                 <FiEdit size={20} color="#251FC5"/>
                             </button>                            
-                            <button onClick={() => deleteBook(book.id)} type="button">
+                            {/* <button onClick={() => deleteBook(book.id)} type="button"> */}
+                            <button onClick={() => handleDeleteClick(book.id)} type="button">
                                 <FiTrash2 size={20} color="#251FC5"/>
                             </button>
                         </div>
                     </li>
                 ))}
-            </ul>
+            </ul>            
             <button className="button" onClick={fetchMoreBooks} type="button">Load More</button>
+            <ConfirmationModal
+                isOpen={showConfirmationModal}
+                message="Are you sure you want to delete?"
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+            />
         </div>
     )
 }

@@ -32,6 +32,7 @@ export default function Login() {
             history('/books');
         } catch (error) {
             alert('Login failed!');
+            setIsLoading(false);
         }
     }
 
