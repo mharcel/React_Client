@@ -108,16 +108,9 @@ export default function Books(){
             <h1>Registered Books</h1>
             <ul>
                 {books.map(book => (
-                    <li key={book.id}>
-                        <strong>Title:</strong>
-                        <p>{book.title}</p>
-                        <strong>Author:</strong>
-                        <p>{book.author}</p>
-                        <strong>Price:</strong>
-                        <p>{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(book.price)}</p>                    
-                        <strong>Release Date:</strong>
-                        <p>{Intl.DateTimeFormat('pt-BR').format(new Date(book.launchDate))}</p>
+                    <li key={book.id}>                        
                         <div className="actionButtons">
+                        <strong>Title:</strong>
                             <button onClick={() => editBook(book.id)} type="button">
                                 <FiEdit size={20} color="#251FC5"/>
                             </button>                            
@@ -126,6 +119,15 @@ export default function Books(){
                                 <FiTrash2 size={20} color="#251FC5"/>
                             </button>
                         </div>
+                        
+                        <p>{book.title}</p>
+                        <strong>Author:</strong>
+                        <p>{book.author}</p>
+                        <strong>Price:</strong>
+                        <p>{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(book.price)}</p>                    
+                        <strong>Release Date:</strong>
+                        <p>{Intl.DateTimeFormat('pt-BR').format(new Date(book.launchDate))}</p>
+                        
                     </li>
                 ))}
             </ul>            

@@ -61,8 +61,13 @@
 }
 
 @media (max-width: 767px) {
+    .new-book-container {        
+        height: auto;
+    }
+
     .new-book-container .content {
         padding: 24px;
+        flex-direction: column;
     }
 
     .new-book-container section.form {
@@ -70,8 +75,8 @@
         margin-bottom: 24px;
     }
 
-    .new-book-container section.form img {
-        width: 70%;
+    .new-book-container img {
+        width: 30%;
         margin: 0 auto;
     }
 

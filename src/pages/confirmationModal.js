@@ -10,8 +10,8 @@ function ConfirmationModal({ isOpen, message, onConfirm, onCancel }) {
       <div className="modal-content">
         <p>{message}</p>
         <div className="buttons">
-          <button onClick={onConfirm}>Confirm</button>
-          <button onClick={onCancel}>Cancel</button>
+          <button className="button" onClick={onConfirm}>Confirm</button>
+          <button className="button" onClick={onCancel}>Cancel</button>
         </div>
       </div>
     </div>

@@ -89,31 +89,37 @@ export default function NewBook(){
         <div className="new-book-container">
             {isLoading && <LoadingModal isLoading={isLoading} description={loadingMessage}/>}
             <div className="content">
-                <section className="form">
-                    <img src={logoImage} alt="Erudio" />
-                    <h1>{bookId === '0' ? 'Add' : 'Update'} Book</h1>
-                    <p>Enter the book information and click on {bookId === '0' ? 'Add' : 'Update'}!</p>
+                <div>
                     <Link className="back-link" to="/books">
                         <FiArrowLeft size={16} color="#251Fc5"/>
                         Back to Books
                     </Link>
+                    <img src={logoImage} alt="Erudio" />
+                </div>
+                <section className="form">
+                    <h1>{bookId === '0' ? 'Add' : 'Update'} Book</h1>
+                    <p>Enter the book information and click on {bookId === '0' ? 'Add' : 'Update'}!</p>
                 </section>
                 <form onSubmit={saveOrUpdate}>
+                    <strong>Title:</strong>
                     <input
                         placeholder="Title"
                         value={title}
                         onChange={e => setTitle(e.target.value)}
                     />
+                    <strong>Author:</strong>
                     <input
                         placeholder="Author"
                         value={author}
                         onChange={e => setAuthor(e.target.value)}
                     />
+                    <strong>Date:</strong>
                     <input
                         type="date"
                         value={launchDate}
                         onChange={e => setLaunchDate(e.target.value)}
                     />
+                    <strong>Price:</strong>
                     <input
                         placeholder="Price"
                         value={price}
