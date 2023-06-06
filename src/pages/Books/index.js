@@ -1,18 +1,23 @@
 import React, {useState, useEffect} from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import './styles.css';
-import logoImage from '../../assets/logo.svg';
+import logoImage from '../../assets/library.png';
 import {FiPower, FiEdit, FiTrash2} from 'react-icons/fi';
 import api from "../../services/api";
-import loadingModal from "../loadingModal";
 import LoadingModal from "../loadingModal";
 
 export default function Books(){
     const [isLoading, setIsLoading] = useState(false);
+    const [loadingMessage, setLoadingMessage] = useState();
     const [page, setPage] = useState(0);
     const [books, setBooks] = useState([]);
     const userName = localStorage.getItem('userName')    
     const accessToken = localStorage.getItem('accessToken');
+
+    const setLoadingModal = (isLoading, loadingMessage) => {
+        setIsLoading(isLoading);
+        setLoadingMessage(loadingMessage);
+    }
 
     const authorization = {
         headers: {
@@ -48,9 +53,11 @@ export default function Books(){
 
     async function logout(){
         try {
+            setLoadingModal(true, "Logging Out...");
             await api.get('api/auth/v1/revoke', authorization);
             
             localStorage.clear();
+            setLoadingModal(false);
             navigate('/');
         } catch (error) {
             alert('Logout Error!')
@@ -58,16 +65,16 @@ export default function Books(){
     }
 
     async function fetchMoreBooks(){
-        setIsLoading(true);
+        setLoadingModal(true, "Loading Books...");
         const response = await api.get(`api/Book/v1/asc/10/${page}`, authorization);
             setBooks([ ...books, ...response.data.list]);
             setPage(page + 1);
-        setIsLoading(false);
+        setLoadingModal(false);
         }    
 
     return (
         <div className="book-container">
-            {isLoading && <LoadingModal isLoading={isLoading}/>}
+            {isLoading && <LoadingModal isLoading={isLoading} description={loadingMessage}/>}
             <header>
                 <img src={logoImage} alt="Erudio"/>
                 <span>Welcome, <strong>{userName.toUpperCase()}</strong></span>
@@ -92,8 +99,7 @@ export default function Books(){
                         <div className="actionButtons">
                             <button onClick={() => editBook(book.id)} type="button">
                                 <FiEdit size={20} color="#251FC5"/>
-                            </button>
-                            
+                            </button>                            
                             <button onClick={() => deleteBook(book.id)} type="button">
                                 <FiTrash2 size={20} color="#251FC5"/>
                             </button>

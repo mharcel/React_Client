@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './styles.css';
-import logoImage from '../../assets/logo.svg';
+import logoImage from '../../assets/library.png';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import {FiArrowLeft} from 'react-icons/fi';
 import api from "../../services/api";
@@ -78,7 +78,7 @@ export default function NewBook(){
 
     return(        
         <div className="new-book-container">
-            {isLoading && <LoadingModal isLoading={isLoading}/>}
+            {isLoading && <LoadingModal isLoading={isLoading} description="Loading Book..."/>}
             <div className="content">
                 <section className="form">
                     <img src={logoImage} alt="Erudio" />

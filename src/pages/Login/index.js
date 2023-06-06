@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import './styles.css';
-import logoImage from '../../assets/logo.svg';
+import logoImage from '../../assets/library.png';
 import padlock from '../../assets/padlock.png';
 import api from "../../services/api";
 import LoadingModal from "../loadingModal";
@@ -37,7 +37,7 @@ export default function Login() {
 
     return (
         <div className="login-container">
-            {isLoading && <LoadingModal isLoading={isLoading}/>}
+            {isLoading && <LoadingModal isLoading={isLoading} description="Logging In..."/>}
             <section className="form">
                 <img src={logoImage} alt="Erudio Logo"/>
                 <form onSubmit={login}>

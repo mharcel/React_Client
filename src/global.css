@@ -9,7 +9,7 @@
 
 body{
     font: 400 14px Roboto, sans-serif;
-    background: #f0f0f5;
+    background: #dadae2;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -126,14 +126,10 @@ form input{
         padding: 16px;
     }
     
-    .book-container ul li button,
-    .book-container ul li button + button {
-        top: 12px;
-        right: 12px;
-    }
+    
     
     .actionButtons button:not(:last-child) {
-        margin-right: 30px;
+        margin-left: 50px;
     }
 }
 
