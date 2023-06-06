@@ -83,14 +83,15 @@ export default function Books(){
                         <p>{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(book.price)}</p>                    
                         <strong>Release Date:</strong>
                         <p>{Intl.DateTimeFormat('pt-BR').format(new Date(book.launchDate))}</p>
-                        
-                        <button onClick={() => editBook(book.id)} type="button">
-                            <FiEdit size={20} color="#251FC5"/>
-                        </button>
-                        
-                        <button onClick={() => deleteBook(book.id)} type="button">
-                            <FiTrash2 size={20} color="#251FC5"/>
-                        </button>
+                        <div className="actionButtons">
+                            <button onClick={() => editBook(book.id)} type="button">
+                                <FiEdit size={20} color="#251FC5"/>
+                            </button>
+                            
+                            <button onClick={() => deleteBook(book.id)} type="button">
+                                <FiTrash2 size={20} color="#251FC5"/>
+                            </button>
+                        </div>
                     </li>
                 ))}
             </ul>

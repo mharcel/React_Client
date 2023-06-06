@@ -113,4 +113,8 @@
         top: 12px;
         right: 12px;
     }
+    
+    .actionButtons button:not(:last-child) {
+        margin-right: 30px;
+    }
 }
