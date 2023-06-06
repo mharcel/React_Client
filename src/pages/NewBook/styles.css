@@ -59,3 +59,33 @@
 .new-book-container .content form input {
     margin-top: 8px;
 }
+
+@media (max-width: 767px) {
+    .new-book-container .content {
+        padding: 24px;
+    }
+
+    .new-book-container section.form {
+        margin-right: 0;
+        margin-bottom: 24px;
+    }
+
+    .new-book-container section.form img {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .new-book-container .content section h1 {
+        margin: 16px 0 12px;
+        font-size: 20px;
+    }
+
+    .new-book-container .content section p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .new-book-container .content form {
+        max-width: 300px;
+    } 
+}
