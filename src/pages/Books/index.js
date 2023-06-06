@@ -4,8 +4,11 @@ import './styles.css';
 import logoImage from '../../assets/logo.svg';
 import {FiPower, FiEdit, FiTrash2} from 'react-icons/fi';
 import api from "../../services/api";
+import loadingModal from "../loadingModal";
+import LoadingModal from "../loadingModal";
 
 export default function Books(){
+    const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(0);
     const [books, setBooks] = useState([]);
     const userName = localStorage.getItem('userName')    
@@ -21,7 +24,7 @@ export default function Books(){
 
     useEffect(() => {
         fetchMoreBooks();
-    }, accessToken)
+      }, [accessToken]);
 
     async function editBook(id){
         try {
@@ -55,13 +58,16 @@ export default function Books(){
     }
 
     async function fetchMoreBooks(){
+        setIsLoading(true);
         const response = await api.get(`api/Book/v1/asc/10/${page}`, authorization);
             setBooks([ ...books, ...response.data.list]);
             setPage(page + 1);
+        setIsLoading(false);
         }    
 
     return (
         <div className="book-container">
+            {isLoading && <LoadingModal isLoading={isLoading}/>}
             <header>
                 <img src={logoImage} alt="Erudio"/>
                 <span>Welcome, <strong>{userName.toUpperCase()}</strong></span>

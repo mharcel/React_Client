@@ -4,9 +4,10 @@ import logoImage from '../../assets/logo.svg';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import {FiArrowLeft} from 'react-icons/fi';
 import api from "../../services/api";
+import LoadingModal from "../loadingModal";
 
 export default function NewBook(){
-
+    const [isLoading, setIsLoading] = useState(false);
     const [id, setId] = useState(null);
     const [author, setAuthor] = useState('');
     const [title, setTitle] = useState('');
@@ -32,6 +33,7 @@ export default function NewBook(){
 
     async function loadBook(){
         try {
+            setIsLoading(true);
             const response = await api.get(`api/book/v1/${bookId}`, authorization)
 
             let adjustedDate = response.data.launchDate.split("T", 10)[0];
@@ -41,6 +43,7 @@ export default function NewBook(){
             setAuthor(response.data.author);
             setPrice(response.data.price);
             setLaunchDate(adjustedDate);
+            setIsLoading(false);
         } catch (error) {
             alert('Error recovering book');
             history('/books')
@@ -73,8 +76,9 @@ export default function NewBook(){
     }
 
 
-    return(
+    return(        
         <div className="new-book-container">
+            {isLoading && <LoadingModal isLoading={isLoading}/>}
             <div className="content">
                 <section className="form">
                     <img src={logoImage} alt="Erudio" />
