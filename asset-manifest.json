@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/mharcel/static/css/main.f3e06491.css",
-    "main.js": "/mharcel/static/js/main.d4d67701.js",
+    "main.css": "/mharcel/static/css/main.d710de62.css",
+    "main.js": "/mharcel/static/js/main.28be3e66.js",
     "static/media/padlock.png": "/mharcel/static/media/padlock.497a7a06fb0337dd2294.png",
-    "static/media/logo.svg": "/mharcel/static/media/logo.2ec08d3fa3441eb00de8c9c229d8c114.svg",
+    "static/media/library.png": "/mharcel/static/media/library.1a1483d336db2110da1f.png",
     "index.html": "/mharcel/index.html",
-    "main.f3e06491.css.map": "/mharcel/static/css/main.f3e06491.css.map",
-    "main.d4d67701.js.map": "/mharcel/static/js/main.d4d67701.js.map"
+    "main.d710de62.css.map": "/mharcel/static/css/main.d710de62.css.map",
+    "main.28be3e66.js.map": "/mharcel/static/js/main.28be3e66.js.map"
   },
   "entrypoints": [
-    "static/css/main.f3e06491.css",
-    "static/js/main.d4d67701.js"
+    "static/css/main.d710de62.css",
+    "static/js/main.28be3e66.js"
   ]
 }
